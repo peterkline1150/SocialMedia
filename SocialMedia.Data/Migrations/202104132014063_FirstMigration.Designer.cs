@@ -13,7 +13,7 @@ namespace SocialMedia.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202104131752159_FirstMigration"; }
+            get { return "202104132014063_FirstMigration"; }
         }
         
         string IMigrationMetadata.Source
