@@ -78,25 +78,6 @@ namespace SocialMedia.Services
             }
         }
 
-        public PostDetail GetPostByPostId(int Id)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var entity =
-                    ctx
-                        .Posts
-                        .Single(e => e.Id == Id);
-
-                return new PostDetail
-                {
-                    Id = entity.Id,
-                    AuthorId = entity.AuthorId,
-                    Title = entity.Title,
-                    Text = entity.Text,
-                    Comments = entity.Comments,
-                };
-            }
-        }
         public bool UpdatePost(PostUpdate model)
         {
             using (var ctx = new ApplicationDbContext())
