@@ -55,5 +55,72 @@ namespace SocialMedia.Services
                 return query.ToArray();
             }
         }
+
+        public IEnumerable<PostList> GetPostsByAuthorId(Guid authorId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query =
+                    ctx
+                        .Posts
+                        .Where(e => e.AuthorId == authorId)
+                        .Select(
+                            e =>
+                                new PostList
+                                {
+                                    Id = e.Id,
+                                    Title = e.Title,
+                                    Text = e.Text
+                                }
+                        );
+
+                return query.ToArray();
+            }
+        }
+
+        public PostDetail GetPostByPostId(int Id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Posts
+                        .Single(e => e.Id == Id);
+
+                return new PostDetail
+                {
+                    Id = entity.Id,
+                    AuthorId = entity.AuthorId,
+                    Title = entity.Title,
+                    Text = entity.Text,
+                    Comments = entity.Comments,
+                };
+            }
+        }
+        public bool UpdatePost(PostUpdate model)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Posts.Single(e => e.Id == model.Id);
+
+                entity.Title = model.Title;
+
+                entity.Text = model.Text;
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public bool DeletePost(int Id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Posts.Single(e => e.Id == Id);
+
+                ctx.Posts.Remove(entity);
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
     }
 }

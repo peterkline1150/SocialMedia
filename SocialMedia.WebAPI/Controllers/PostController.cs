@@ -39,5 +39,48 @@ namespace SocialMedia.WebAPI.Controllers
             var postService = new PostService(userId);
             return postService;
         }
+
+        public IHttpActionResult Get(Guid authorId)
+        {
+            PostService postService = CreatePostService();
+            var posts = postService.GetPostsByAuthorId(authorId);
+            return Ok(posts);
+        }
+
+        public IHttpActionResult Get(int PostId)
+        {
+            PostService postService = CreatePostService();
+            var post = postService.GetPostByPostId(PostId);
+            return Ok(post);
+        }
+
+        public IHttpActionResult Put(PostUpdate post)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var service = CreatePostService();
+
+            if (!service.UpdatePost(post))
+            {
+                return InternalServerError();
+            }
+
+            return Ok();
+        }
+
+        public IHttpActionResult Delete(int Id)
+        {
+            var service = CreatePostService();
+
+            if (!service.DeletePost(Id))
+            {
+                return InternalServerError();
+            }
+
+            return Ok();
+        }
     }
 }
