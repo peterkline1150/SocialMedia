@@ -41,10 +41,11 @@ namespace SocialMedia.Services
                     .Select(e => new CommentList
                     {
                         Text = e.Text,
-                        Replies = e.Replies,
+                        Replies = e.Replies
                     }
                         
                     );
+
                 return query.ToArray();
             }
 

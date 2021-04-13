@@ -19,7 +19,7 @@ namespace SocialMedia.Data
         [Required]
         public Guid AuthorID { get; set; }
 
-        public virtual List<Reply> Replies { get; set; } = new List<Reply>();
+        public virtual List<Reply> Replies { get; set; }
 
 
         [ForeignKey(nameof(Post))]
