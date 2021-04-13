@@ -54,6 +54,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommentCreate.cs" />
+    <Compile Include="CommentList.cs" />
     <Compile Include="PostCreate.cs" />
     <Compile Include="PostList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,6 +65,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SocialMedia.Data\SocialMedia.Data.csproj">
+      <Project>{7AE2943B-2CD1-49DD-AC28-F840BBFB0539}</Project>
+      <Name>SocialMedia.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
