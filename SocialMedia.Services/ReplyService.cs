@@ -48,5 +48,45 @@ namespace SocialMedia.Services
                 return query.ToArray();
             }
         }
+
+        public IEnumerable<ReplyList> GetRepliesByAuthorId(Guid authorId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query = ctx.Replies.Where(e => e.AuthorId == authorId)
+                    .Select(
+                        e => new ReplyList
+                        {
+                            Text = e.Text
+                        }
+                    );
+
+                return query.ToArray();
+            }
+        }
+
+        public bool UpdateReply(ReplyUpdate model)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Replies.Single(e => e.Id == model.Id);
+
+                entity.Text = model.Text;
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public bool DeleteReply(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Replies.Single(e => e.Id == id);
+
+                ctx.Replies.Remove(entity);
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
     }
 }

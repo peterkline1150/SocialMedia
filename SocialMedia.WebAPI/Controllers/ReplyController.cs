@@ -43,5 +43,41 @@ namespace SocialMedia.WebAPI.Models
             var replies = replyService.GetReplies(commentId);
             return Ok(replies);
         }
+
+        public IHttpActionResult Get(Guid authorId)
+        {
+            ReplyService replyService = CreateReplyService();
+            var replies = replyService.GetRepliesByAuthorId(authorId);
+            return Ok(replies);
+        }
+
+        public IHttpActionResult Put(ReplyUpdate reply)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var service = CreateReplyService();
+
+            if (!service.UpdateReply(reply))
+            {
+                return InternalServerError();
+            }
+
+            return Ok();
+        }
+
+        public IHttpActionResult Delete(int id)
+        {
+            var service = CreateReplyService();
+
+            if (!service.DeleteReply(id))
+            {
+                return InternalServerError();
+            }
+
+            return Ok();
+        }
     }
 }
