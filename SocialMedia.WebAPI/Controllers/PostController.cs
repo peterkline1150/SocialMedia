@@ -47,13 +47,6 @@ namespace SocialMedia.WebAPI.Controllers
             return Ok(posts);
         }
 
-        public IHttpActionResult Get(int PostId)
-        {
-            PostService postService = CreatePostService();
-            var post = postService.GetPostByPostId(PostId);
-            return Ok(post);
-        }
-
         public IHttpActionResult Put(PostUpdate post)
         {
             if (!ModelState.IsValid)
