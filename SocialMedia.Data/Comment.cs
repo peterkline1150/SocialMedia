@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace SocialMedia.Data
 {
-    class Comment
+    public class Comment
     {
+        string gitFawked = "Try this on for size";
     }
 }
