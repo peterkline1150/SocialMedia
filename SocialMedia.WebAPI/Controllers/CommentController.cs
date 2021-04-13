@@ -39,5 +39,41 @@ namespace SocialMedia.WebAPI.Controllers
             var commentService = new CommentService(userId);
             return commentService;
         }
+
+        public IHttpActionResult Get(Guid authorId)
+        {
+            CommentService commentService = CreateCommentService();
+            var comments = commentService.GetCommentsByAuthorId(authorId);
+            return Ok(comments);
+        }
+
+        public IHttpActionResult Put(CommentUpdate comment)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var service = CreateCommentService();
+
+            if (!service.UpdateComment(comment))
+            {
+                return InternalServerError();
+            }
+
+            return Ok();
+        }
+
+        public IHttpActionResult Delete(int id)
+        {
+            var service = CreateCommentService();
+
+            if (!service.DeleteComment(id))
+            {
+                return InternalServerError();
+            }
+
+            return Ok();
+        }
     }
 }

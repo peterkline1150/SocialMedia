@@ -50,6 +50,47 @@ namespace SocialMedia.Services
             }
 
         }
+        public IEnumerable<CommentList> GetCommentsByAuthorId(Guid authorId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query = ctx.Comments.Where(e => e.AuthorID == authorId)
+                    .Select(e => new CommentList
+                    {
+                        Text = e.Text,
+                        Replies = e.Replies
+                    }
+
+                    );
+
+                return query.ToArray();
+            }
+
+        }
+
+        public bool UpdateComment(CommentUpdate model)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Comments.Single(e => e.ID == model.Id);
+
+                entity.Text = model.Text;
+
+                return ctx.SaveChanges() == 1;
+
+            }
+        }
+
+        public bool DeleteComment(int Id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Comments.Single(e => e.ID == Id);
+                ctx.Comments.Remove(entity);
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
 
     }
 }
