@@ -11,6 +11,6 @@ namespace SocialMedia.Models
     {
         public string Text { get; set; }
 
-        public virtual List<Reply> Replies { get; set; } = new List<Reply>();
+        public virtual List<Reply> Replies { get; set; }
     }
 }
